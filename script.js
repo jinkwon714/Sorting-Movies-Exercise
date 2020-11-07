@@ -1,7 +1,7 @@
 /**
  * DONE: Change sortMoviesByRank() function to sort movies list by rank
- * TODO: Sort movies by id, rank, and title through dynamic function
- * TODO: Create helper function called getMaxMovieObject() for finding max movie
+ * DONE: Sort movies by id, rank, and title through dynamic function
+ * DONE: Create helper function called getMaxMovieObject() for finding max movie
  */
 
 // List of movies
@@ -59,7 +59,7 @@ let movies = [
 ]
 
 window.onload = function() {
-    let sortedMovies = sortMoviesByAttr(movies, "id");  // "parameter" --> can be used only see the specific one
+    let sortedMovies = sortMoviesByAttr(movies, "rank");  // "parameter" --> can be used only see the specific one
     // Display Movies list
     displayMovies(sortedMovies);
 }
@@ -132,13 +132,16 @@ function sortMoviesByAttr(movies, sortAttr){
       //     id: "tt0137523"
       // },
     let max_location = j;
+    let max = getMaxMovieObject(movies, j, sortAttr)
+    max_obj = max.max_obj
+    max_location = max.max_index
 
-    for (let i = j; i < movies.length; i++) {
-        if (movies[i][sortAttr] > max_obj[sortAttr]) {      // how to make another parameter applicable onto the other
-            max_obj = movies[i]
-            max_location = i
-        }
-    }
+    // for (let i = j; i < movies.length; i++) {
+    //     if (movies[i][sortAttr] > max_obj[sortAttr]) {      // how to make another parameter applicable onto the other
+    //         max_obj = movies[i]
+    //         max_location = i
+    //     }
+    // }
     // swap the first and the last
     movies[max_location] = movies[j] 
     movies[j] = max_obj
@@ -155,16 +158,16 @@ return movies
  */
 function getMaxMovieObject(movies, start, sortAttr){
   // Code from previous findMaxHelper() function
-  let maximum = numbers[start];
+  let max_obj = movies[start];
   let max_location = start
 
-  for (let i = start; i < numbers.length; i++) {
-      if (numbers[i] > maximum) {
-          maximum = numbers[i]
+  for (let i = start; i < movies.length; i++) {
+      if (movies[i][sortAttr] > max_obj[sortAttr]) {
+          max_obj = movies[i]
           max_location = i
       }
   }
-  return {max_number: maximum, max_index: max_location}
+  return {max_obj: max_obj, max_index: max_location}
 }
 
 
